@@ -1,0 +1,68 @@
+<?php
+
+class User{
+	
+	var $userToken;
+	var $userGID;
+	var $userGName;
+	var $userProfile;
+	var $userImgUrl;
+	var $userLocation;	
+	var $userRegDate;
+	var $userRegTime;
+	var $userLoginTime;
+	var $userLoginDate;
+
+	function _construct(){
+		$userToken = "";
+		$userGID = "";
+		$userGName = "";
+		$userProfile = "";
+		$userImgUrl = "";
+		$userLocation = "";
+		$userRegDate = "";
+		$userRegTime = "";
+		$userLoginTime = "";
+		$userLoginDate = "";
+	}
+	
+	function fill($usrToken, $userID, $displayName, $usrProfile, $usrImgUrl, $usrLocation){
+		$this->userToken = $usrToken;
+		$this->userGID = $userID;
+		$this->userGName = $displayName;
+		$this->userProfile = $usrProfile;
+		$this->userImgUrl = $usrImgUrl;
+		$this->userLocation = $usrLocation;
+	}
+
+	function fillLogin($date, $time){
+		$this->userLoginDate = $date;
+		$this->userLoginTime = $time;
+	}
+
+	function fillReg($date, $time){
+		$this->userRegDate = $date;
+		$this->userRegTime = $time;
+	}
+		
+
+	function send(){
+		$userdisplay = array('userToken' => $this->userToken,
+							'userGID' => $this->userGID,
+							'userGName' => $this->userGName,
+							'userProfile' => $this->userProfile,
+							'userImgUrl' => $this->userImgUrl,
+							'userLocation' => $this->userLocation,
+							'userRegDate' => $this->userRegDate,
+							'userRegTime' => $this->userRegTime,
+							'userLoginDate' => $this->userLoginDate,
+							'userLoginTime' => $this->userLoginTime);
+			
+		echo json_encode($userdisplay);
+	}
+	
+	function __destruct(){
+		
+	}
+}
+?>
