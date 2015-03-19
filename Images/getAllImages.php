@@ -1,6 +1,6 @@
 <?php
 include '../Element/LifeAlbum.php';
-include '../Element/SyncObj.php';
+include_once '../Element/SyncObj.php';
 include '../Database/validate.php';
 include '../Sync/sync_interface.php';
 include './imageMain.php';

@@ -49,7 +49,7 @@ class Photo{
 							'Name' => $this->Name,
 							'username' => $this->username,
 							'userID' => $this->userID,
-							'albumID' => $this->albumID,
+							'AlbumID' => $this->albumID,
 							'Title' => $this->Title,
 							'Description' => $this->Description,
 							'UploadTime' => $this->UploadTime,

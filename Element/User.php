@@ -38,10 +38,10 @@ class User{
 		$MaxImage = "";
 		$MaxGroup = "";
 		$MaxContact = "";
+		
 	}
 	
-	function fill($usrToken, $userID, $displayName, $email, $phone, $usrProfile, $usrImgUrl, $usrLocation,
-			$maxAlb, $maxImg, $maxGrp, $maxCont){
+	function fill($usrToken, $userID, $displayName, $email, $phone, $usrProfile, $usrImgUrl, $usrLocation){
 		$this->userToken = $usrToken;
 		$this->userGID = $userID;
 		$this->userGName = $displayName;
@@ -51,9 +51,13 @@ class User{
 		$this->userImgUrl = $usrImgUrl;
 		$this->userLocation = $usrLocation;
 		
+
+	}
+
+	function setLimits($maxAlb, $maxImg, $maxGrp, $maxCont){
 		$this->MaxAlbum = $maxAlb;
-		$this->MaxImg = $maxImg;
-		$this->MaxGrp = $maxGrp;
+		$this->MaxImage = $maxImg;
+		$this->MaxGroup = $maxGrp;
 		$this->MaxContact = $maxCont;
 	}
 
@@ -65,6 +69,11 @@ class User{
 	function fillReg($date, $time){
 		$this->userRegDate = $date;
 		$this->userRegTime = $time;
+	}
+
+	function setUserContact($phone, $email){
+		$this->userPhone = $phone;
+		$this->userEmail = $email;
 	}
 		
 

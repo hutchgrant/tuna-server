@@ -36,8 +36,7 @@ function getProfile($token, $UStoken){
 	}
 	
 	$loginUser = new User();
-	$loginUser->fill($UStoken, $outputDecode['id'], $outputDecode['displayName'],$outputDecode['url'], 
-			$outputDecode['image']['url'], $place);
+	$loginUser->fill($UStoken, $outputDecode['id'], $outputDecode['displayName'],"na", "na", $outputDecode['url'], $outputDecode['image']['url'], $place);
 
 	return $loginUser;
 }

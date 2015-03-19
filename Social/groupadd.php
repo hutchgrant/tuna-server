@@ -34,12 +34,12 @@ $group = getGroupDetails($userID);
 		
 		}else{
 			$group = writeGroup($group);
-			writeAllContacts($group);
-			updateGroupSync($group->groupAuthor,$group->groupSize, $group->groupSyncDate, $group->groupSyncTime, "true"); 
-		}
+			// echo "group author = ".$group->groupAuthor."  ".$group->groupSize."  ".$group->groupSyncDate."  ".$groupSyncTime;
+			updateGroupSync($group->groupAuthor, $group->groupSize, $group->groupSyncDate, $group->groupSyncTime, "true"); 
+		} 
 		$lifeGrp = new LifeGroup();
 		$lifeGrp->addGroup($group);
 		$lifeGrp->displayLife(); 
-	}
+	} 
 } 
 ?>

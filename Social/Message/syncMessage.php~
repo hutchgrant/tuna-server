@@ -1,0 +1,11 @@
+<?php
+include 'message_main.php';
+include '../../Database/validate.php';
+include '../../Sync/sync_interface.php';
+include '../../Element/SyncMsgObj.php';
+
+$user = getTokenHeader();
+if(checkTokenHeader($user) == true){
+	echo "true";
+}
+?>

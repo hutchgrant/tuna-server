@@ -1,9 +1,9 @@
 <?php
-include '../Database/dbConnect.php';
-
+include_once '../Database/dbConnect.php';
+include_once '../Database/genToken.php';
 /*
 *  Convert all the JSON input to Albums
-*/
+*/  
 function getAlbumDetails(){
 
 $album = new Album();
@@ -60,19 +60,6 @@ function writeAlbumPhotos($album){
 	return $album;
 }
 
-/*
- * Generate random string for token
-*/
-function randString($length, $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
-{
-		$str = '';
-		$count = strlen($charset);
-		while ($length--) {
-			$str .= $charset[mt_rand(0, $count-1)];
-		}
-		return $str;
-}
-
 function updateAlbum($album){
 	$actDate = date('Y-m-d');
 	$actTime = date('H:i:s', time());
@@ -106,7 +93,7 @@ function updateAlbumPhotos($album){
 		}
 	}
 	return $album;
-}
+}  
 
 function updateImage($img){
 	$sqlCon = new dbConnect();
@@ -123,7 +110,7 @@ function writeImage($img){
 	$q = "insert into Images values ('0', '$img->ID', '$img->UploadToken', '$img->Name', '$img->username', '$img->userID','$img->albumID', '$img->Title', '$img->Description', '$img->UploadTime', '$img->UploadDate', '$IPaddress')"; 
 	$sqlCon->finQry($q);
 	$sqlCon->sqlClose();  
-} 
+}  
 
 function removeAlbum($album){
 	 $sqlCon = new dbConnect();

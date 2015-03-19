@@ -14,6 +14,7 @@ class Album{
 	function _construct(){
 		$photos = array();
 		$count = 0;
+		fill("", "", "", "", "", "");
 	}
 
 	function fill($ID, $AUTHORID, $NAME, $SIZE, $SYNCDATE, $SYNCTIME){
@@ -40,12 +41,10 @@ class Album{
 
 	function displayAlbum(){
 
+
 		$totalArr = array();
 		$ImgFinalArr = array();
 		$ct = 0;
-		
-		// echo "{ \"album\" : ";
-
 		foreach($this->photos as $phto){
 			$ImgFinalArr['ID'] = $phto->ID;
 			$ImgFinalArr['Type'] = $phto->Type;
@@ -70,7 +69,6 @@ class Album{
 				'images' => $totalArr);
 		
 			echo json_encode($albumDisplay);
-		//	echo " \n }";
 	}
 }
 

@@ -1,5 +1,6 @@
 <?php
-include '../Database/dbConnect.php';
+include_once '../Database/dbConnect.php';
+include_once '../Database/genToken.php';
 
 
 /*

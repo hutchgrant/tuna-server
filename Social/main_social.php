@@ -1,5 +1,5 @@
 <?php
-include '../Database/dbConnect.php';
+include_once '../Database/dbConnect.php';
 
 /*
  *  Get the group details from json post
@@ -25,7 +25,8 @@ function getGroupDetails($authorID){
 				$name = $value['name'];
 				$email = $value['email'];
 				$phone = $value['phone'];
-				$group->addContact($grpID,$id, $googID, $name, $email, $phone); 
+				$img = $value['img'];
+				$group->addContact($grpID,$id, $googID, $name, $email, $phone, $img); 
 			}
 			return $group;
 }
@@ -39,6 +40,7 @@ function writeGroup($group){
 	$q = "insert into Groups values ('0', '$group->groupAuthor', '$group->groupID', '$group->groupName', '$group->groupSize', '$group->groupSyncDate', '$group->groupSyncTime')";
 	$sqlCon->finQry($q);
 	$sqlCon->sqlClose();
+	writeAllContacts($group);
 	return $group;
 }
 
@@ -46,8 +48,7 @@ function writeAllContacts($group){
 	 $sqlCon = new dbConnect();
 	 $sqlCon->sqlConn();
 	foreach($group->people as $obj){
-//		echo $obj->Name . " written";
-	 $q = "insert into Contacts values ('0', '$group->groupAuthor', '$group->groupID', '$obj->ID', '$obj->GoogleID', '$obj->Name', '$obj->Email', '$obj->Phone')";
+	 $q = "insert into Contacts values ('0', '$group->groupAuthor', '$group->groupID', '$obj->ID', '$obj->GoogleID', '$obj->Name', '$obj->Email', '$obj->Phone', '$obj->Image')";
 	 $sqlCon->finQry($q);
 	}
 
@@ -57,7 +58,7 @@ function writeAllContacts($group){
 function writeContact($contact, $userID){
 	 $sqlCon = new dbConnect();
 	 $sqlCon->sqlConn();
-	 $q = "insert into Contacts values ('0', '$userID', '$contact->GroupID', '$contact->ID', '$contact->GoogleID', '$contact->Name', '$contact->Email', '$contact->Phone')";
+	 $q = "insert into Contacts values ('0', '$userID', '$contact->GroupID', '$contact->ID', '$contact->GoogleID', '$contact->Name', '$contact->Email', '$contact->Phone', '$contact->Image')";
 	 $sqlCon->finQry($q);
 	 $sqlCon->sqlClose();
 }
@@ -78,7 +79,7 @@ function updateContact($contact, $userID){
 	if($contact->Name != "removed"){	
 		$sqlCon = new dbConnect();
 		$sqlCon->sqlConn();
-		$q = "update Contacts SET ContactID='$contact->ID', GoogleID='$contact->GoogleID', ContactName='$contact->Name', ContactEmail='$contact->Email', ContactPhone='$contact->Phone' WHERE UserID='$userID' AND GroupID='$contact->GroupID' AND ContactID='$contact->ID'";
+		$q = "update Contacts SET ContactID='$contact->ID', GoogleID='$contact->GoogleID', ContactName='$contact->Name', ContactEmail='$contact->Email', ContactPhone='$contact->Phone', ContactImage='$contact->Image' WHERE UserID='$userID' AND GroupID='$contact->GroupID' AND ContactID='$contact->ID'";
 		$sqlCon->finQry($q);
 		$sqlCon->sqlClose();
 	}else{
@@ -93,7 +94,7 @@ function getLifeGroup($userID, $syncDate, $syncTime){
 	 $sqlCon = new dbConnect();
 	$sqlCon->sqlConn();
 	$finQry = "";
-	if($syncDate == "na"){
+	if($syncDate == "na" || $syncDate == "0000-00-00"){
 		$q = "select * from Groups where UserID='$userID' ";
 	}else{
 		$currentTime = date('H:i:s', time());
@@ -120,12 +121,24 @@ function getLifeGroupContacts($life){
 		$q = "select * from Contacts where GroupID='$group->groupID'";
 		$userRes = mysql_query($q) or die("couldn't find user in database");
 		while($qryRow = mysql_fetch_array($userRes)){
-			$group->addContact($qryRow[2], $qryRow[3], $qryRow[4], $qryRow[5], $qryRow[6], $qryRow[7]);
+			$group->addContact($qryRow[2], $qryRow[3], $qryRow[4], $qryRow[5], $qryRow[6], $qryRow[7], $qryRow[8]);
 		} 
 	}
 	
 	$sqlCon->sqlClose();
 	 return $life; 
+}
+
+function updateFriendGroup($userID, $groupID, $syncDate, $syncTime){
+	$sqlCon = new dbConnect();
+	$sqlCon->sqlConn();
+   	$IPaddress = $_SERVER['REMOTE_ADDR'];
+	$group->groupSyncDate =  $syncDate;
+	$group->groupSyncTime = $syncTime;
+	$q = "update Groups SET groupSize=groupSize+1, syncDate='$syncDate', syncTime='$syncTime' WHERE UserGroupID='$groupID' AND UserID='$userID'";
+	$sqlCon->finQry($q);
+	$sqlCon->sqlClose();
+	return $group;
 }
 
 function removeGroupByID($userID, $groupID){

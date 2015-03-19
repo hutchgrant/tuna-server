@@ -14,9 +14,20 @@ class SyncObj{
 	var $syncImgAmount;
 	var $syncGrpAmount;
 	var $syncConAmount;
-
+	var $syncInviteToken;
+	var $syncInviteDate;
+	var $syncInviteTime;
+	var $syncInvRecAmount;
+	var $syncInvSntAmount;	
+	var $syncMsgToken;
+	var $syncMsgDate;
+	var $syncMsgTime;
+	var $syncMsgRecAmount;
+	var $syncMsgSntAmount;	
 	function _construct(){
-		fill("", "", "", "", "", "", "", "", 0, 0, 0, 0);
+		fill("", "", "", "", "", "", "", "", 0, 0, 0, 0, "", "", "", 0, 0);
+		fillInvite("", "", "", 0, 0);
+		fillMessage("", "", "", 0, 0);
 	}
 
 	function fill($userID, $token, $imgDate, $imgTime, $grpDate, $grpTime, $profDate, $profTime, $albAmount, $imgAmount, $grpAmount, $conAmount){
@@ -34,6 +45,22 @@ class SyncObj{
 		$this->syncConAmount = $conAmount;
 	}
 
+	function fillInvite($inviteToken, $inviteDate, $inviteTime, $inviteRecAmount, $inviteSntAmount){
+		$this->syncInviteToken = $inviteToken;
+		$this->syncInviteDate = $inviteDate;
+		$this->syncInviteTime = $inviteTime;
+		$this->syncInvRecAmount = $inviteRecAmount;
+		$this->syncInvSntAmount = $inviteSntAmount;
+	}
+
+	function fillMessage($msgToken, $msgDate, $msgTime, $msgRecAmt, $msgSntAmount){
+		$this->syncMsgToken = $msgToken;
+		$this->syncMsgDate =  $msgDate;
+		$this->syncMsgTime = $msgTime;
+		$this->syncMsgRecAmount = $msgRecAmt;
+		$this->syncMsgSntAmount = $msgSntAmount;
+	}
+
 	function display(){
 		$syncDisplay = array('syncUserID' => $this->syncUserID,
 				'syncToken' => $this->syncToken,				
@@ -43,16 +70,22 @@ class SyncObj{
 				'syncGrpTime' => $this->syncGrpTime,
 				'syncProfDate' => $this->syncProfDate,
 				'syncProfTime' => $this->syncProfTime,
-				'syncAlbAmount' => $this->sycnAlbAmount,
+				'syncAlbAmount' => $this->syncAlbAmount,
 				'syncImgAmount' => $this->syncImgAmount,
 				'syncGrpAmount' => $this->syncGrpAmount,
-				'syncConAmount' => $this->syncConAmount);
+				'syncConAmount' => $this->syncConAmount,
+				'syncInviteToken' => $this->syncInviteToken,
+				'syncInviteDate' => $this->syncInviteDate,
+				'syncInviteTime' => $this->syncInviteTime,
+				'syncInvSntAmount' => $this->syncInvSntAmount,
+				'syncInvRecAmount' => $this->syncInvRecAmount,
+				'syncMsgToken' => $this->syncMsgToken,
+				'syncMsgDate' => $this->syncMsgDate,
+				'syncMsgTime' => $this->syncMsgTime,
+				'syncMsgSntAmount' => $this->syncMsgSntAmount,
+				'syncMsgRecAmount' => $this->syncMsgRecAmount);
 		
 			echo json_encode($syncDisplay);
-	}
-
-	function __destruct(){
-	
 	}
 
 }

@@ -1,15 +1,12 @@
 <?php
 include_once '../Database/dbConnect.php';
 
-/*
-* validate token
-*/
 function validateToken($token){
 	$errorFree = true;
-	 if(!preg_match("/^[ -_().,a-zA-Z0-9]+$/i", $token) && strlen($token) >= 1){
+	if(!preg_match("/^[ -_().,a-zA-Z0-9]+$/i", $token)){
 		echo "TUNAERROR: token";
 		$errorFree = false;
-	}
+	}	
 	return $errorFree;
 }
 
@@ -163,7 +160,7 @@ function validateContact($contact){
 }
 
 /*
-* Validate Contact input for upload
+* Validate overall sync input 
 */
 function validateSync($sync){
 	$errorFree = true;
@@ -171,6 +168,10 @@ function validateSync($sync){
            echo "TUNAERROR : syncUserID INVALID:".$sync->syncUserID;
 	$errorFree = false;
 	}
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncToken)){
+           echo "TUNAERROR : syncToken INVALID:".$sync->syncToken;
+	$errorFree = false;
+	} 
 	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncGrpDate)){
            echo "TUNAERROR : syncGrpDate INVALID:".$sync->syncGrpDate;
 	$errorFree = false;
@@ -205,19 +206,175 @@ function validateSync($sync){
 	} 
 	return $errorFree;
 }
-
 /*
-* Validate a phone number is legit
+* Validate sync invite input
 */
-function validatePhone($phone){
-
+function validateSyncDetails($sync){
 	$errorFree = true;
-
-	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $phone){
-           echo "TUNAERROR : User Phone Number INVALID:".$phone;
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncInviteToken)){
+          echo "TUNAERROR : syncInviteToken INVALID:".$sync->syncInviteToken;
 	$errorFree = false;
 	} 
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncInviteDate)){
+           echo "TUNAERROR : syncInviteDate INVALID:".$sync->syncInviteDate;
+	$errorFree = false;
+	} 
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncInviteTime)){
+           echo "TUNAERROR : syncInviteTime INVALID:".$sync->syncInviteTime;
+	$errorFree = false;
+	} 
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncInviteRecAmount)){
+           echo "TUNAERROR : syncInviteRecAmount INVALID:".$sync->syncInviteRecAmount;
+	$errorFree = false;
+	} 
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncInviteSntAmount)){
+           echo "TUNAERROR : syncInviteSntAmount INVALID:".$sync->syncInviteSntAmount;
+	$errorFree = false;
+	} 
+	return $errorFree;
+}
+/*
+* Validate each invite input
+*/
 
+function validateLifeInvite($invite){
+	$errorFree = true;
+	foreach($life->invites as $invite){
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->InviteID)){
+           		echo "TUNAERROR : InviteID INVALID:".$invite->InviteID;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->InviteUserGID)){
+           		echo "TUNAERROR : InviteUserGID INVALID:".$invite->InviteUserGID;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->RecipientName)){
+           		echo "TUNAERROR : RecipientName INVALID:".$this->RecipientName;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->RecipientUserGID)){
+           		echo "TUNAERROR : RecipientUserGID INVALID:".$this->RecipientUserGID;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->RecipientEmail)){
+           		echo "TUNAERROR : RecipientEmail INVALID:".$invite->RecipientEmail;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->RecipientPhone)){
+           		echo "TUNAERROR : RecipientPhone INVALID:".$invite->RecipientPhone;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->InviteDate)){
+           		echo "TUNAERROR : InviteDate INVALID:".$invite->InviteDate;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->InviteTime)){
+           		echo "TUNAERROR : InviteTime INVALID:".$invite->InviteTime;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $invite->InviteStatus)){
+           		echo "TUNAERROR : InviteStatus INVALID:".$invite->InviteStatus;
+			$errorFree = false;
+		}
+	} 
+	return $errorFree;
+}
+/*
+* Validate each Message input
+*/
+
+function validateLifeMessages($life){
+	$errorFree = true;
+	foreach($life->messages as $msg){
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->MID)){
+           		echo "TUNAERROR : MessageID INVALID:".$msg->MID;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->UserID)){
+           		echo "TUNAERROR : Message UserID INVALID:".$msg->UserID;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->UserName)){
+           		echo "TUNAERROR : Message UserName INVALID:".$msg->UserName;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->Type)){
+           		echo "TUNAERROR : Message Type INVALID:".$msg->Type;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->Content)){
+           		echo "TUNAERROR : Message Content INVALID:".$msg->Content;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->RecipientID)){
+           		echo "TUNAERROR : Message RecipientID INVALID:".$msg->RecipientID;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->RecipientGrpID)){
+           		echo "TUNAERROR : Message RecipientGrpID INVALID:".$msg->RecipientGrpID;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->mDate)){
+           		echo "TUNAERROR : Message Date INVALID:".$msg->mDate;
+			$errorFree = false;
+		}
+		if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $msg->mTime)){
+           		echo "TUNAERROR : Message Time INVALID:".$msg->mTime;
+			$errorFree = false;
+		}
+	} 
+	return $errorFree;
+}
+
+/*
+* Validate sync message input
+*/
+function validateSyncMsg($sync){
+	$errorFree = true;
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncMsgToken)){
+          echo "TUNAERROR : syncMsgToken INVALID:".$sync->syncMsgToken;
+	$errorFree = false;
+	} 
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncMsgDate)){
+           echo "TUNAERROR : syncMsgDate INVALID:".$sync->syncMsgDate;
+	$errorFree = false;
+	} 
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncMsgTime)){
+           echo "TUNAERROR : syncMsgTime INVALID:".$sync->syncMsgTime;
+	$errorFree = false;
+	} 
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncMsgRecAmount)){
+           echo "TUNAERROR : syncMsgRecAmount INVALID:".$sync->syncMsgRecAmount;
+	$errorFree = false;
+	} 
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $sync->syncMsgSntAmount)){
+           echo "TUNAERROR : syncMsgSntAmount INVALID:".$sync->syncMsgSntAmount;
+	$errorFree = false;
+	} 
+	return $errorFree;
+}
+
+/*
+* Validate sync message input
+*/
+function validateImgID($imgID){
+	$errorFree = true;
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $imgID)){
+          echo "TUNAERROR : ImageID INVALID:".$imgID;
+	$errorFree = false;
+	} 
+	return $errorFree;
+}
+
+/*
+* Validate sync message input
+*/
+function validateAlbID($albID){
+	$errorFree = true;
+	if(!preg_match("/^[ -_.,()a-zA-Z0-9]+$/i", $albID)){
+          echo "TUNAERROR : AlbumID INVALID:".$albID;
+	$errorFree = false;
+	} 
 	return $errorFree;
 }
 
@@ -231,9 +388,42 @@ function validateUser($user){
 }
 
 /*
-*
-/// Check database to see if the record already exists for a given object and userID
+* Check database to see if the record already exists for a given object and userID
 */
+
+/*
+* Check Group Exists in Group table
+*/
+function checkInviteExists($userID, $inviteID){
+	$sqlCon = new dbConnect();
+	$sqlCon->sqlConn();
+	$q = "SELECT * from Invites where InviteUserGID='$userID' AND InviteID='$inviteID'";
+	$userRes = mysql_query($q);
+	
+	if(is_resource($userRes) && mysql_num_rows($userRes) > 0 ){
+		return true;
+	}
+	else{
+		return false;
+	}
+ 	$sqlCon->sqlClose();
+}
+
+function checkInvitedUserExists($recID, $recEmail, $recPhone){
+	$sqlCon = new dbConnect();
+	$sqlCon->sqlConn();
+
+	$q = "select * from Users where UserID='$recID' OR userEmail='$recEmail' OR userPhone='$recPhone' ";
+		$userRes = mysql_query($q);
+		if(is_resource($userRes) && mysql_num_rows($userRes) > 0 ){
+		return true;
+	}
+	else{
+		return false;
+	}
+	$sqlCon->sqlClose();	
+}
+
 /*
 * Check Group Exists in Group table
 */
@@ -270,28 +460,22 @@ function checkContactExists($contact, $userID){
 	 $sqlCon->sqlClose();
 }
 
-/***
-*
-* DOUBLE CHECK HEADER TOKENS
-*/
-/*
- * Check if the header contains a token URL
- */  
 function getTokenHeader(){
 	$headers = apache_request_headers();
 	$counter = 0;
+	$finalToken = "";
 	foreach ($headers as $header) {
-
 		if($counter == 2){
 			$finalToken = $header;
 		}
 		$counter++;
 	}	
-	if(validateToken($finalToken){
+	/* if(validateToken($finalToken)){
 		return $finalToken;
 	}else {
 		return "";
-	}
+	} */
+	return $finalToken;
 }
 
 function getImageTokenHeader(){
@@ -304,7 +488,7 @@ function getImageTokenHeader(){
 		}
 		$counter++;
 	}
-	if(validateToken($finalToken){
+	if(validateToken($finalToken)){
 		return $finalToken;
 	}else {
 		return "";
@@ -320,15 +504,13 @@ function getUploadHeader(){
 		}
 		$counter++;
 	}
-	if(validateToken($finalToken){
+	if(validateToken($finalToken)){
 		return $finalToken;
 	}else {
 		return "";
 	}
 }
-/*
- *  Check if token is verified
- */  
+
 function checkTokenHeader($userToken){
 	$sqlCon = new dbConnect();
 	$sqlCon->sqlConn();
@@ -336,17 +518,15 @@ function checkTokenHeader($userToken){
 	$userRes = mysql_query($q);
 	
 	if(is_resource($userRes) && mysql_num_rows($userRes) > 0 ){
+		$sqlCon->sqlClose();
 		return true;
 	}
 	else{
+		$sqlCon->sqlClose();
 		return false;
 	}
 }
 
-
-/* Read User from database based on user token supplied
- * @param: user token
-*/ 
 function getUserID($userToken){
 	 $sqlCon = new dbConnect();
 	$sqlCon->sqlConn();

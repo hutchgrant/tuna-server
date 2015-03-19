@@ -1,0 +1,8 @@
+<?php
+include '../../Database/validate.php';
+include '../../Sync/sync_interface.php';
+include '../../Element/SyncMsgObj.php';
+
+$userToken = getTokenHeader();
+echo $userToken;
+?>

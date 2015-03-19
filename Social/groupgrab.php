@@ -15,9 +15,9 @@ if(checkTokenHeader($userToken) == true){
 	if(validateSync($syncObj) == true){
 		$life = getLifeGroup($userID, $syncObj->syncGrpDate, $syncObj->syncGrpTime);
 		$life->displayLife();
-	}
+	} 
 } else{
 	echo "invalid token ".$userToken;
-}
+}  
 
 ?>

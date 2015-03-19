@@ -24,7 +24,7 @@ class LifeAlbum{
 			if($ct != 1){
 				echo ",\n";			
 			}
-			$album->displayAlbum();
+			$album->displayAlbum("na");
 
 			//$group->dispContacts2();			
 			$ct++;

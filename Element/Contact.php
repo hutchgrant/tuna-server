@@ -9,6 +9,7 @@ class Contact{
 	var $Name;
 	var $Email;
 	var $Phone;
+	var $Image;
 
 	function _construct(){
 		$ID = "";
@@ -17,15 +18,17 @@ class Contact{
 		$Name = "";
 		$Email = "";
 		$Phone = "";
+		$Image = "";
 	}
 
-	function addPerson($groupID, $id, $googleID, $name, $email, $phone){
+	function addPerson($groupID, $id, $googleID, $name, $email, $phone, $img){
 		$this->ID = $id;
 		$this->GroupID = $groupID;
 		$this->GoogleID = $googleID;
 		$this->Name = $name;
 		$this->Email = $email;
 		$this->Phone = $phone;
+		$this->Image = $img;
 	}
 
 	function send(){
@@ -34,7 +37,8 @@ class Contact{
 					'GoogleID' => $this->GoogleID,
 					'Name' => $this->Name,
 					'Email' => $this->Email,
-					'Phone' => $this->Phone);
+					'Phone' => $this->Phone,
+					'ProfileImg' => $this->Image);
 		echo json_encode($contactDisplay);
 	}
 

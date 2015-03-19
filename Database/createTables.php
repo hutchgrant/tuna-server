@@ -20,11 +20,14 @@ function setupTables(){
 
     $q[5] = "create table Groups (id INT NULL AUTO_INCREMENT, PRIMARY KEY(id), UserID varchar(50), UserGroupID varchar(50), groupName varchar(100), groupSize int, syncDate DATE, syncTime varchar(25))"; 
 
-    $q[6] = "create table Contacts (id INT NULL AUTO_INCREMENT, PRIMARY KEY(id), UserID varchar(50), GroupID varchar(100), ContactID varchar(50), GoogleID varchar(100), ContactName varchar(100), ContactEmail varchar(100), ContactPhone varchar (20))";
+    $q[6] = "create table Contacts (id INT NULL AUTO_INCREMENT, PRIMARY KEY(id), UserID varchar(50), GroupID varchar(100), ContactID varchar(50), GoogleID varchar(100), ContactName varchar(100), ContactEmail varchar(100), ContactPhone varchar (20), ContactImg varchar(100) )";
 
-    $q[7] = "create table Sync (id int NULL AUTO_INCREMENT, PRIMARY KEY(id), UserID varchar(50),  syncToken varchar(20), syncProfDate DATE, syncProfTime TIME, syncAlbDate DATE, syncAlbTime TIME, syncAlbAmount int, syncImgAmount int, syncGrpDate DATE, syncGrpTime TIME, syncGrpAmount int, syncConAmount int)";
+    $q[7] = "create table Sync (id int NULL AUTO_INCREMENT, PRIMARY KEY(id), UserID varchar(50),  syncToken varchar(20), syncProfDate DATE, syncProfTime TIME, syncAlbDate DATE, syncAlbTime TIME, syncAlbAmount int, syncImgAmount int, syncGrpDate DATE, syncGrpTime TIME, syncGrpAmount int, syncConAmount int, inviteToken varchar(50), inviteDate DATE, inviteTime TIME, inviteRecAmount int, inviteSntAmount int,
+msgToken varchar(50), msgDate DATE, msgTime TIME, msgRecAmount int, msgSntAmount int)";
 
-    $q[8] = "create table Invites (id int NULL AUTO_INCREMENT, PRIMARY KEY(id), InviteID varchar(50), InviteUserGID varchar(50), RecipientUserGID varchar(50), RecipientUserEmail varchar(100), RecipientUserPhone varchar(20), inviteDate DATE, inviteTime TIME )";
+    $q[8] = "create table Invites (id int NULL AUTO_INCREMENT, PRIMARY KEY(id), InviteID varchar(50), InviteStatus varchar(20), InviteUserGID varchar(50), InviteUserName varchar(100), RecipientName varchar(100), RecipientUserGID varchar(50), RecipientUserEmail varchar(100), RecipientUserPhone varchar(20), inviteDate DATE, inviteTime TIME )";
+
+$q[9] = "create table Messages (id int NULL AUTO_INCREMENT, PRIMARY KEY(id), MessageID varchar(50), UserID varchar(50), UserName varchar(100), Type varchar(25), Content varchar(250), RecipientID varchar(100), RecipientGrpID varchar(50), mDate DATE, mTime TIME, ip_address varchar(20) )";
 
  /*   
     $q[3] = "create table Pages (id INT NULL AUTO_INCREMENT, PRIMARY KEY(id), username VARCHAR(30), imageID varchar(20), title varchar(30), description varchar(150), 
@@ -49,7 +52,7 @@ function setupTables(){
    
     $sqlCon = new dbConnect();
     
-    for($i = 1; $i <=8; $i++){
+    for($i = 1; $i <=9; $i++){
     	$sqlCon->finQry($q[$i]);
     }
     $sqlCon->sqlClose();

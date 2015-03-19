@@ -32,10 +32,10 @@ class Group{
 		$this->groupAuthor = $grpAuth;
 	}
 
-	function addContact($grpID, $id, $googleid, $name, $email, $phone){
+	function addContact($grpID, $id, $googleid, $name, $email, $phone, $img){
 		
 		$person = new Contact();
-		$person->addPerson($grpID,$id,$googleid, $name,$email,$phone);
+		$person->addPerson($grpID,$id,$googleid, $name,$email,$phone, $img);
 		$this->people[$this->count] = $person;
 		$this->count = $this->count +1;
 	}
@@ -73,6 +73,7 @@ class Group{
 			echo " \n] } \n";
 	}
 
+
 	function send(){
 		$totalArr = array();
 		$contactArray = array();
@@ -84,6 +85,7 @@ class Group{
 			$contactArray['Name'] = $person->Name;
 			$contactArray['Email'] = $person->Email;
 			$contactArray['Phone'] = $person->Phone;
+			$contactArray['ProfileImg'] = $person->Image; 
 			$totalArr[$ct] = $contactArray;	 
 			$ct++;
 		}  
